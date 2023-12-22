@@ -162,6 +162,28 @@ export class Grid {
     this.normalScaleX = this.actor.scale_x;
   }
 
+  public SetClosestElementDelegateToAppPosition(){
+
+    let appCenter = this.app.platform.get_window_center(this.app.FocusMetaWindow);
+
+    let minDistance = -1;
+    for (var i=0; i < this.elements.length; i++) {
+      for (var j=0; j < this.elements[i].length;j++) {
+        let delegateCenter = this.elements[i][j].delegate.getDelegateCenter(this.elements[i][j])
+        let distance = Math.sqrt((appCenter[0] - delegateCenter[0])**2 +(appCenter[1] - delegateCenter[1])**2);
+        if (minDistance === -1 || distance < minDistance) {
+          minDistance = distance
+          this.keyElement = this.elements[i][j]
+          this.rowKey = i;
+          this.colKey = j;
+        }
+      }
+    }
+    if (this.keyElement) {
+        this.keyElement._onButtonPress(false);
+        this.keyElement._onHoverChanged();
+    }
+  }
   /**
    * Changes all references to the current monitor to a new one,
    * including GridElements

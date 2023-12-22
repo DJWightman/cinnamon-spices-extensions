@@ -125,6 +125,7 @@ export class App implements IApp {
             grid.Show(Math.floor(pos_x - grid.actor.width / 2), Math.floor(pos_y - grid.actor.height / 2));
 
             this.OnFocusedWindowChanged();
+            grid.SetClosestElementDelegateToAppPosition();
             this.visible = true;
         }
     }

@@ -103,6 +103,14 @@ export class GridElementDelegate {
     return [minX, maxX, minY, maxY];
   }
 
+  public getDelegateCenter = (gridElement: GridElement) => {
+
+    let areaWidth, areaHeight, areaX, areaY;
+    [areaX, areaY, areaWidth, areaHeight] = this._computeAreaPositionSize(gridElement, gridElement);
+    let x_center = (areaX + areaWidth/2)
+    return [areaX + (areaWidth / 2), areaY + (areaHeight / 2)]
+  }
+
   public refreshGrid = (fromGridElement: GridElement, toGridElement: GridElement) => {
     this._resetGrid();
     let minX, maxX, minY, maxY;
